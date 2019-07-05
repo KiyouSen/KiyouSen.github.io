@@ -12,19 +12,26 @@
   </script>
 
   <style>
-    #videoElement {
+    /* #videoElement {
       width: 640;
       height: 480;
       background-color: #666;
+    } */
+    .fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 640;
+      height: 480;
     }
-    </style>
+      </style>
 
 </head>
 
 <body>
   <div style="position: relative" class="margin">
-    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline ></video>
-    <canvas id="overlay"></canvas>
+    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline className="fixed"></video>
+    <canvas id="overlay" className="fixed"></canvas>
   </div>
 
   <script>
