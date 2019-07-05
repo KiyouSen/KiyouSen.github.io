@@ -18,11 +18,9 @@
       background-color: #666;
     } */
     .fixed {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
-      width: 640;
-      height: 480;
     }
       </style>
 
@@ -30,8 +28,8 @@
 
 <body>
   <div style="position: relative" class="margin">
-    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline className="fixed"></video>
-    <canvas id="overlay" className="fixed"></canvas>
+    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline className="fixed" width="640" height="480"></video>
+    <canvas id="overlay" className="fixed" width="640" height="480"></canvas>
   </div>
 
   <script>
