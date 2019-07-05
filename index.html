@@ -37,6 +37,12 @@
     async function onPlay() {
       // const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
       const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+
+      if (result) {
+        const canvas = $('#overlay').get(0)
+        const dims = faceapi.matchDimensions(canvas, videoEl, true)
+        faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+      }
       console.log(result)
 
       setTimeout(() => onPlay())
