@@ -41,7 +41,7 @@
       if (result) {
         console.log(result)
         const canvas = document.getElementById('overlay')
-        const dims = faceapi.matchDimensions(canvas, videoEl, true)
+        const dims = faceapi.matchDimensions(canvas, video, true)
         faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
       }
 
