@@ -59,7 +59,7 @@
       const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks().withAgeAndGender().withFaceDescriptors()
 
-      if (result) {
+      if (result.length) {
         console.log(result)
         const canvas = document.getElementById('overlay')
         const dims = faceapi.matchDimensions(canvas, video, true)
