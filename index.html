@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script src="face-api.js"></script>
   <script>
     console.log(faceapi.nets)
     faceapi.nets.tinyFaceDetector.loadFromUri('./model')
   </script>
+
   <style>
     #videoElement {
       width: 640;
@@ -15,9 +20,10 @@
     </style>
 
 </head>
+
 <body>
   <div style="position: relative" class="margin">
-    <video id="videoElement" autoplay="true" muted></video>
+    <video id="videoElement" autoplay muted playsinline ></video>
     <canvas id="overlay"></canvas>
   </div>
 
