@@ -59,7 +59,9 @@
     async function onPlay() {
       // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
       const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks().withAgeAndGender().withFaceDescriptors()
+        .withFaceLandmarks(true)  // true: useTinyModel
+        .withAgeAndGender()
+        .withFaceDescriptors()
 
       if (result.length) {
         console.log(result)
