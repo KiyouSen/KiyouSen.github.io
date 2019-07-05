@@ -17,9 +17,8 @@
 </head>
 <body>
   <div>
-    <video autoplay="true" id="videoElement">
-    
-    </video>
+    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay="true" muted></video>
+    <canvas id="overlay"></canvas>
   </div>
 
   <script>
@@ -33,6 +32,13 @@
         .catch(function (err0r) {
           console.log("Something went wrong!");
         });
+    }
+
+    async function onPlay() {
+      const result = await faceapi.detectSingleFace(video)
+      console.log(result)
+
+      setTimeout(() => onPlay())
     }
   </script>
 </body>
