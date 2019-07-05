@@ -35,7 +35,8 @@
     }
 
     async function onPlay() {
-      const result = await faceapi.detectSingleFace(video)
+      // const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+      const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
       console.log(result)
 
       setTimeout(() => onPlay())
