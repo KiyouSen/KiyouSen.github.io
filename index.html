@@ -55,14 +55,17 @@
     }
 
     async function onPlay() {
-      // const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-      const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+      // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+      const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks().withAgeAndGender().withFaceDescriptors()
 
       if (result) {
         console.log(result)
         const canvas = document.getElementById('overlay')
         const dims = faceapi.matchDimensions(canvas, video, true)
-        faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+        const resized_result = faceapi.resizeResults(result, dims)
+        faceapi.draw.drawDetections(canvas, resized_result)
+        faceapi.draw.drawFaceLandmarks(canvas, resized_result)
       }
 
       setTimeout(() => onPlay())
