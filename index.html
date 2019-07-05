@@ -6,8 +6,34 @@
     console.log(faceapi.nets)
     faceapi.nets.tinyFaceDetector.loadFromUri('./model')
   </script>
+  <style>
+    #videoElement {
+      width: 640;
+      height: 480;
+      background-color: #666;
+    }
+    </style>
+
 </head>
 <body>
-  <div>hello</div>
+  <div>
+    <video autoplay="true" id="videoElement">
+    
+    </video>
+  </div>
+
+  <script>
+    var video = document.querySelector("#videoElement");
+
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
+  </script>
 </body>
 </html>
