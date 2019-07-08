@@ -49,10 +49,6 @@
     </select>
   </div>
   <p id="time"></p>
-  <div id="container">
-    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
-    <canvas id="overlay"></canvas>
-  </div>
   <div>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required
@@ -60,6 +56,12 @@
     <button id="buttonSave" onclick="saveDescriptor()">Save discriptor</button>
   </div>
 
+  <div id="container">
+    <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
+    <canvas id="overlay"></canvas>
+  </div>
+
+  
   <script>
     var video = document.querySelector("#videoElement");
     var selectTarget = document.querySelector("#selectTarget");
