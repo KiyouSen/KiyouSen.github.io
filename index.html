@@ -76,8 +76,17 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         const myObj = JSON.parse(this.responseText);
-        console.log(this.responseText)
-        console.log(myObj)
+        const des = myObj.values
+        console.log(des)
+        const labeledDescriptors = [
+          new faceapi.LabeledFaceDescriptors(
+            'sen',
+            [des]
+          )
+        ]
+
+        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+        console.log(faceMatcher)
       }
     };
     xmlhttp.open("GET", "/data/sen.json", true);
