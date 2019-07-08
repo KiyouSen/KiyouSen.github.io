@@ -48,6 +48,9 @@
       <option value="description">+ description</option>
     </select>
   </div>
+  <div>
+    <label>time</label><p id="time"></p>
+  </div>
   <div id="container">
     <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
     <canvas id="overlay"></canvas>
@@ -57,6 +60,7 @@
     var video = document.querySelector("#videoElement");
     var selectTarget = document.querySelector("#selectTarget");
     var canvas = document.getElementById('overlay')
+    var time = document.getElementById("time")
 
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
@@ -71,6 +75,16 @@
         });
     }
 
+    
+    let forwardTimes = []
+    function updateTimeStats(timeInMs) {
+      forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
+      const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
+      time.innerHTML = '' + Math.round(avgTimeInMs)
+      // $('#fps').val(`${faceapi.round(1000 / avgTimeInMs)}`)
+    }
+
+
     let predictedAges = []
     function interpolateAgePredictions(age) {
       predictedAges = [age].concat(predictedAges).slice(0, 30)
@@ -83,6 +97,8 @@
       let inputSize = 128;
       let scoreThreshold = 0.5;
       let tinyOptions = new faceapi.TinyFaceDetectorOptions({ inputSize, scoreThreshold});
+
+      const ts = Date.now()
 
       switch (selectTarget.value){
         case "detect":
@@ -129,6 +145,8 @@
       // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
         // .withAgeAndGender()
         // .withFaceDescriptors()
+        
+      updateTimeStats(Date.now() - ts)
 
       setTimeout(() => onPlay())
     }
