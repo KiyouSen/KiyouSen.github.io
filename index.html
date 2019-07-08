@@ -42,7 +42,10 @@
   <div>
     <select id="selectTarget">
       <option value="detect">detect faces</option>
-      <option value="landmarks">landmarks</option>
+      <option value="landmarks">+ landmarks</option>
+      <option value="expression">+ expression</option>
+      <option value="age_gender">+ age + gender</option>
+      <option value="description">+ description</option>
     </select>
   </div>
   <div id="container">
@@ -93,6 +96,28 @@
             faceapi.draw.drawFaceLandmarks(canvas, resized_result)
           }
           break;
+        case "age_gender":
+          result = await faceapi.detectAllFaces(video, tinyOptions)
+            .withFaceLandmarks(true)  // true: useTinyModel
+            .withAgeAndGender()
+          if (result.length) {
+            console.log(result)
+            const dims = faceapi.matchDimensions(canvas, video, true)
+            const resized_result = faceapi.resizeResults(result, dims)
+            faceapi.draw.drawDetections(canvas, resized_result)
+            faceapi.draw.drawFaceLandmarks(canvas, resized_result)
+            const { age, gender, genderProbability } = resized_result;
+            const interpolatedAge = interpolateAgePredictions(age)
+            new faceapi.draw.DrawTextField(
+              [
+                faceapi.round(interpolatedAge, 0) + 'years',
+                '' + gender + faceapi.round(genderProbability)
+              ],
+              result.detection.box.bottomLeft
+            ).draw(canvas)
+
+          }
+          
       }
       // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
         // .withAgeAndGender()
