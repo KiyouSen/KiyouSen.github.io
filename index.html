@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="face-api.js"></script>
+  <script src="utils.js"></script>
   <script>
     /////  LOAD PERSONAL DESCRIPTOR DATA  /////
     var refMatcher;
@@ -207,8 +208,8 @@
 
 
     function saveDescriptor(){
-      const json = JSON.stringify(curDescriptor)
-      console.log(inputName.value + json)
+      const json = JSON.stringify(Array.prototype.slice.call(curDescriptor))
+      console.log(json)   // inputName.value + 
       // let fs = require()   // need node.js
     }
 
