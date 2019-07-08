@@ -57,7 +57,7 @@
 
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
-        video: {width: {exact: 640}, height: {exact: 480}, facingMode: "user"}
+        video: {width: {exact: 640}, height: {exact: 480}}    // , facingMode: "user"
       };
       navigator.mediaDevices.getUserMedia(vgaConstraints)
         .then(function (stream) {
