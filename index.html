@@ -39,6 +39,12 @@
 </head>
 
 <body>
+  <div>
+    <select id="selectTarget">
+      <option value="detect">detect faces</option>
+      <option value="landmarks">landmarks</option>
+    </select>
+  </div>
   <div id="container">
     <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
     <canvas id="overlay"></canvas>
@@ -46,10 +52,11 @@
 
   <script>
     var video = document.querySelector("#videoElement");
+    var selectTarget = document.querySelector("#selectTarget");
 
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
-        video: {width: {exact: 320}, height: {exact: 240}}
+        video: {width: {exact: 320}, height: {exact: 240}, facingMode: "user"}
       };
       navigator.mediaDevices.getUserMedia(vgaConstraints)
         .then(function (stream) {
@@ -61,21 +68,31 @@
     }
 
     async function onPlay() {
-      // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
-      const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks(true)  // true: useTinyModel
-        .withAgeAndGender()
-        .withFaceDescriptors()
+      const canvas = document.getElementById('overlay')
+      const dims = faceapi.matchDimensions(canvas, video, true)
 
-      if (result.length) {
-        console.log(result)
-        const canvas = document.getElementById('overlay')
-        const dims = faceapi.matchDimensions(canvas, video, true)
-        const resized_result = faceapi.resizeResults(result, dims)
-        faceapi.draw.drawDetections(canvas, resized_result)
-        faceapi.draw.drawFaceLandmarks(canvas, resized_result)
+      switch (selectTarget.value){
+        case "detect":
+          const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          if (result){
+            const resized_result = faceapi.resizeResults(result, dims)
+            faceapi.draw.drawDetections(canvas, resized_result)
+          }
+          break;
+        case "landmarks":
+          const result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+            .withFaceLandmarks(true)  // true: useTinyModel
+          if (result.length) {
+            const resized_result = faceapi.resizeResults(result, dims)
+            faceapi.draw.drawDetections(canvas, resized_result)
+            faceapi.draw.drawFaceLandmarks(canvas, resized_result)
+          }
+          break;
       }
-
+      // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+        // .withAgeAndGender()
+        // .withFaceDescriptors()
+        
       setTimeout(() => onPlay())
     }
   </script>
