@@ -76,8 +76,9 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         const myObj = JSON.parse(this.responseText);
-        const des = myObj.values
+        const des = Object.values(myObj)
         console.log(des)
+        des = new Float32Array(des)
         const labeledDescriptors = [
           new faceapi.LabeledFaceDescriptors(
             'sen',
