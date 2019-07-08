@@ -128,7 +128,7 @@
             faceapi.draw.drawDetections(canvas, resized_result)
             faceapi.draw.drawFaceLandmarks(canvas, resized_result)
 
-            result.foreach((res) => {
+            result.forEach((res) => {
               const { age, gender, genderProbability } = res;
               new faceapi.draw.DrawTextField(
                 [
