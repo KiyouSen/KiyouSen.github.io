@@ -67,7 +67,7 @@
     var selectTarget = document.querySelector("#selectTarget");
     var canvas = document.getElementById('overlay')
     var time = document.getElementById("time")
-    var name = document.getElementById("name")
+    var inputName = document.getElementById("name")
     
     var curDescriptor;
 
@@ -181,7 +181,7 @@
 
     function saveDescriptor(){
       const json = JSON.stringify(curDescriptor)
-      console.log(name.value + json)
+      console.log(inputName.value + json)
     }
 
   </script>
