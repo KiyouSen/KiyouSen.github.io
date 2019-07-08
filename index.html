@@ -76,7 +76,8 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         const myObj = JSON.parse(this.responseText);
-        console.log(myObj.name)
+        console.log(this.responseText)
+        console.log(myObj)
       }
     };
     xmlhttp.open("GET", "/data/sen.json", true);
