@@ -48,9 +48,7 @@
       <option value="description">+ description</option>
     </select>
   </div>
-  <div>
-    <label>time</label><p id="time"></p>
-  </div>
+  <p id="time"></p>
   <div id="container">
     <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
     <canvas id="overlay"></canvas>
@@ -80,7 +78,7 @@
     function updateTimeStats(timeInMs) {
       forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30)
       const avgTimeInMs = forwardTimes.reduce((total, t) => total + t) / forwardTimes.length
-      time.innerHTML = '' + Math.round(avgTimeInMs)
+      time.innerHTML = Math.round(avgTimeInMs) + 'ms'
       // $('#fps').val(`${faceapi.round(1000 / avgTimeInMs)}`)
     }
 
@@ -129,15 +127,19 @@
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
             faceapi.draw.drawFaceLandmarks(canvas, resized_result)
-            const { age, gender, genderProbability } = resized_result;
-            const interpolatedAge = interpolateAgePredictions(age)
-            new faceapi.draw.DrawTextField(
-              [
-                faceapi.round(interpolatedAge, 0) + 'years',
-                '' + gender + faceapi.round(genderProbability)
-              ],
-              result.detection.box.bottomLeft()
-            ).draw(canvas)
+
+            result.foreach((res) => {
+              const { age, gender, genderProbability } = res;
+              new faceapi.draw.DrawTextField(
+                [
+                  faceapi.round(interpolatedAge, 0) + 'years',
+                  '' + gender + faceapi.round(genderProbability)
+                ],
+                res.detection.box.bottomLeft
+              ).draw(canvas)
+            })
+            
+            // const interpolatedAge = interpolateAgePredictions(age)
 
           }
           
