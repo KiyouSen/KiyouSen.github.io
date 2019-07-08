@@ -7,12 +7,14 @@
 
   <script src="face-api.js"></script>
   <script>
+    /////  LOAD PERSONAL DESCRIPTOR DATA  /////
+    var refMatcher;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         const myObj = JSON.parse(this.responseText);
         let des = Object.values(myObj)
-        console.log(des)
+        // console.log(des)
         des = new Float32Array(des)
         const labeledDescriptors = [
           new faceapi.LabeledFaceDescriptors(
@@ -21,8 +23,8 @@
           )
         ]
 
-        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
-        console.log(faceMatcher)
+        refMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+        // console.log(faceMatcher)
       }
     };
     xmlhttp.open("GET", "/data/sen.json", true);
@@ -190,6 +192,8 @@
             // })
             if (result.length == 1){
               curDescriptor = result[0].descriptor
+              const bestMatch = refMatcher.findBestMatch(curDescriptor)
+              console.log(bestMatch)
             }
           }
           break;
