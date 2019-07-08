@@ -7,6 +7,28 @@
 
   <script src="face-api.js"></script>
   <script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        const myObj = JSON.parse(this.responseText);
+        let des = Object.values(myObj)
+        console.log(des)
+        des = new Float32Array(des)
+        const labeledDescriptors = [
+          new faceapi.LabeledFaceDescriptors(
+            'sen',
+            [des]
+          )
+        ]
+
+        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+        console.log(faceMatcher)
+      }
+    };
+    xmlhttp.open("GET", "/data/sen.json", true);
+    xmlhttp.send();
+
+    //////  LOAD MODELS  /////
     console.log(faceapi.nets)
     faceapi.nets.tinyFaceDetector.loadFromUri('./model')
     faceapi.nets.faceLandmark68TinyNet.loadFromUri('./model')
@@ -71,29 +93,7 @@
     
     var curDescriptor;
 
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        const myObj = JSON.parse(this.responseText);
-        const des = Object.values(myObj)
-        console.log(des)
-        des = new Float32Array(des)
-        const labeledDescriptors = [
-          new faceapi.LabeledFaceDescriptors(
-            'sen',
-            [des]
-          )
-        ]
-
-        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
-        console.log(faceMatcher)
-      }
-    };
-    xmlhttp.open("GET", "/data/sen.json", true);
-    xmlhttp.send();
-
-
+    ////////  STREAMING  //////////
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
         video: {width: {exact: 640}, height: {exact: 480}}    // , facingMode: "user"
