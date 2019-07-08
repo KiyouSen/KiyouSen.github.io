@@ -48,7 +48,10 @@
     var video = document.querySelector("#videoElement");
 
     if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true })
+      const vgaConstraints = {
+        video: {width: {exact: 320}, height: {exact: 240}}
+      };
+      navigator.mediaDevices.getUserMedia(vgaConstraints)
         .then(function (stream) {
           video.srcObject = stream;
         })
