@@ -53,10 +53,11 @@
   <script>
     var video = document.querySelector("#videoElement");
     var selectTarget = document.querySelector("#selectTarget");
+    var canvas = document.getElementById('overlay')
 
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
-        video: {width: {exact: 320}, height: {exact: 240}, facingMode: "user"}
+        video: {width: {exact: 640}, height: {exact: 480}, facingMode: "user"}
       };
       navigator.mediaDevices.getUserMedia(vgaConstraints)
         .then(function (stream) {
@@ -68,22 +69,25 @@
     }
 
     async function onPlay() {
-      const canvas = document.getElementById('overlay')
-      const dims = faceapi.matchDimensions(canvas, video, true)
       let result;
+      let inputSize = 128;
+      let scoreThreshold = 0.5;
+      let tinyOptions = new faceapi.TinyFaceDetectorOptions({ inputSize, scoreThreshold});
 
       switch (selectTarget.value){
         case "detect":
-          result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          result = await faceapi.detectAllFaces(video, tinyOptions)
           if (result){
+            const dims = faceapi.matchDimensions(canvas, video, true)
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
           }
           break;
         case "landmarks":
-          result = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          result = await faceapi.detectAllFaces(video, tinyOptions)
             .withFaceLandmarks(true)  // true: useTinyModel
           if (result.length) {
+            const dims = faceapi.matchDimensions(canvas, video, true)
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
             faceapi.draw.drawFaceLandmarks(canvas, resized_result)
