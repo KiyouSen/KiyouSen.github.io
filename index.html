@@ -136,7 +136,7 @@
                 faceapi.round(interpolatedAge, 0) + 'years',
                 '' + gender + faceapi.round(genderProbability)
               ],
-              result.detection.box.bottomLeft
+              result.detection.box.bottomLeft()
             ).draw(canvas)
 
           }
@@ -145,7 +145,7 @@
       // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
         // .withAgeAndGender()
         // .withFaceDescriptors()
-        
+
       updateTimeStats(Date.now() - ts)
 
       setTimeout(() => onPlay())
