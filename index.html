@@ -140,6 +140,7 @@
             })
             // const interpolatedAge = interpolateAgePredictions(age)
           }
+          break;
         case "description":
           result = await faceapi.detectAllFaces(video, tinyOptions)
             .withFaceLandmarks(true)  // true: useTinyModel
@@ -154,7 +155,7 @@
               console.log(res.descriptor)
             })
           }
-          
+          break;
       }
       // const result = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
 
