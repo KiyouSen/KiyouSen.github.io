@@ -71,6 +71,18 @@
     
     var curDescriptor;
 
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        const myObj = JSON.parse(this.responseText);
+        console.log(myObj.name)
+      }
+    };
+    xmlhttp.open("GET", "/data/sen.json", true);
+    xmlhttp.send();
+
+
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
         video: {width: {exact: 640}, height: {exact: 480}}    // , facingMode: "user"
@@ -182,6 +194,7 @@
     function saveDescriptor(){
       const json = JSON.stringify(curDescriptor)
       console.log(inputName.value + json)
+      // let fs = require()   // need node.js
     }
 
   </script>
