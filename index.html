@@ -53,12 +53,21 @@
     <video id="videoElement" onloadedmetadata="onPlay(this)" autoplay muted playsinline></video>
     <canvas id="overlay"></canvas>
   </div>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required
+      minlength="4" maxlength="8" size="10">
+    <button id="buttonSave" onclick="saveDescriptor()">Save discriptor</button>
+  </div>
 
   <script>
     var video = document.querySelector("#videoElement");
     var selectTarget = document.querySelector("#selectTarget");
     var canvas = document.getElementById('overlay')
     var time = document.getElementById("time")
+    var name = document.getElementById("name")
+    
+    var curDescriptor;
 
     if (navigator.mediaDevices.getUserMedia) {
       const vgaConstraints = {
@@ -122,7 +131,7 @@
             .withFaceLandmarks(true)  // true: useTinyModel
             .withAgeAndGender()
           if (result.length) {
-            console.log(result)
+            // console.log(result)
             const dims = faceapi.matchDimensions(canvas, video, true)
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
@@ -146,14 +155,17 @@
             .withFaceLandmarks(true)  // true: useTinyModel
             .withFaceDescriptors()
           if (result.length){
-            console.log(result)
+            // console.log(result)
             const dims = faceapi.matchDimensions(canvas, video, true)
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
             faceapi.draw.drawFaceLandmarks(canvas, resized_result)
-            result.forEach(res => {
-              console.log(res.descriptor)
-            })
+            // result.forEach(res => {
+            //   console.log(res.descriptor)
+            // })
+            if (result.length == 1){
+              curDescriptor = res.descriptor
+            }
           }
           break;
       }
@@ -163,6 +175,13 @@
 
       setTimeout(() => onPlay())
     }
+
+
+    function saveDescriptor(){
+      const json = JSON.stringify(curDescriptor)
+      console.log(name.value + json)
+    }
+
   </script>
 </body>
 </html>
