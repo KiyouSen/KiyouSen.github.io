@@ -76,7 +76,7 @@
     <select id="selectTarget">
       <option value="detect">detect faces</option>
       <option value="landmarks">+ landmarks</option>
-      <!-- <option value="expression">+ expression</option> -->
+      <option value="expression">+ expression</option>
       <option value="age_gender">+ age + gender</option>
       <option value="description">+ description</option>
     </select>
@@ -149,10 +149,21 @@
       switch (selectTarget.value){
         case "detect":
           result = await faceapi.detectAllFaces(video, tinyOptions)
-          if (result){
+          if (result.length){
             const dims = faceapi.matchDimensions(canvas, video, true)
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
+          }
+          break;
+        case "expression":
+          result = await faceapi.detectAllFaces(video, tinyOptions)
+            .withFaceExpressions()
+          if (result.length){
+            const dims = faceapi.matchDimensions(canvas, video, true)
+            const resized_result = faceapi.resizeResults(result, dims)
+            faceapi.draw.drawDetections(canvas, resized_result)
+            const minProbability = 0.01
+            faceapi.draw.drawFaceExpressions(canvas, resizedResults, minProbability)
           }
           break;
         case "landmarks":
