@@ -164,7 +164,7 @@
             const resized_result = faceapi.resizeResults(result, dims)
             faceapi.draw.drawDetections(canvas, resized_result)
             const minProbability = 0.01
-            faceapi.draw.drawFaceExpressions(canvas, resizedResults, minProbability)
+            faceapi.draw.drawFaceExpressions(canvas, resized_result, minProbability)
           }
           break;
         case "landmarks":
