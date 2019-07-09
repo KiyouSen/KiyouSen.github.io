@@ -66,6 +66,13 @@
 
 <body>
   <div>
+    <select id="selectSize">
+      <option value="128">128</option>
+      <option value="256">256</option>
+      <option value="512">512</option>
+    </select>
+  </div>
+  <div>
     <select id="selectTarget">
       <option value="detect">detect faces</option>
       <option value="landmarks">+ landmarks</option>
@@ -96,6 +103,7 @@
     var time = document.getElementById("time")
     var inputName = document.getElementById("name")
     var textRecog = document.getElementById("textRecog")
+    var selectSize = document.getElementById("selectSize")
     
     var curDescriptor;
 
@@ -132,7 +140,7 @@
 
     async function onPlay() {
       let result;
-      let inputSize = 128;
+      let inputSize = Number.parseInt(selectSize.value);
       let scoreThreshold = 0.5;
       let tinyOptions = new faceapi.TinyFaceDetectorOptions({ inputSize, scoreThreshold});
 
