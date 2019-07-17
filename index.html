@@ -80,6 +80,7 @@
       <option value="expression">+ expression</option>
       <option value="age_gender">+ age + gender</option>
       <option value="description">+ description</option>
+      <option value="none">none</option>
     </select>
   </div>
   <p id="time"></p>
@@ -148,6 +149,8 @@
       const ts = Date.now()
 
       switch (selectTarget.value){
+        case "none":
+          break;
         case "detect":
           result = await faceapi.detectAllFaces(video, tinyOptions)
           if (result.length){
