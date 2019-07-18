@@ -57,7 +57,7 @@ cv['onRuntimeInitialized'] = async () => {
     console.log('cv loaded.');
 
     await createFileFromUrl('haarcascade_frontalface_default.xml',
-                            '/data/haarcascade_frontalface_default.xml');
+                            './data/haarcascade_frontalface_default.xml');
 
     classifier = new cv.CascadeClassifier();
     classifier.load('haarcascade_frontalface_default.xml');
