@@ -3,6 +3,7 @@
 
 const PROCESSING_RESOLUTION_WIDTH = 240;
 
+var fps = document.getElementById('fps');
 var video = document.getElementById('videoElement');
 var canvas = null;
 let scale = 0;
@@ -19,6 +20,7 @@ function addCanvas(width, height) {
     return canvas;
 }
 
+let init_flag = false;
 async function init() {
     const stream = await navigator.mediaDevices
               .getUserMedia({ video: true, audio: false });
@@ -33,6 +35,8 @@ async function init() {
 
     video.srcObject = stream;
     await video.play();
+
+    init_flag = true;
 }
 
 init();
@@ -93,7 +97,7 @@ const FPS = 30;
 function processVideo() {
     let begin = Date.now();
 
-    if (cv_loaded){
+    if (cv_loaded && init_flag){
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -104,7 +108,9 @@ function processVideo() {
         if (faces.length > 0)
             console.log(faces);       
     }
-    let delay = 1000/FPS - (Date.now() - begin);
+    const dt = Date.now() - begin;
+    let delay = 1000/FPS - dt;
+    fps.innerHTML = dt + ' ms';
     
     setTimeout(processVideo, delay);
 }
