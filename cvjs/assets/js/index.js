@@ -56,7 +56,7 @@
                 l("Initializing the face detection worker"),
                 (i=new o).addEventListener("message",({data:e})=>{
                     switch(e.type){
-                        case"init":l("Worker initialization finished. Starting face detection 🚀"),f();break;
+                        case"init":l("Worker initialization finished. Starting face detection"),f();break;
                         case"detect_faces":
                             requestAnimationFrame(
                                 ()=>{
@@ -84,4 +84,4 @@
                                 document.querySelector("#fps").textContent=`${n}FPS`
                             }();
                             break;
-                        case"log":l("worker👷💬",...e.args)}})}()},function(e,t,n){},,function(e,t,n){e.exports=function(){return new Worker(n.p+"js/detectface.worker.js")}}]);
+                        case"log":l("worker",...e.args)}})}()},function(e,t,n){},,function(e,t,n){e.exports=function(){return new Worker(n.p+"js/detectface.worker.js")}}]);
