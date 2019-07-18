@@ -7,3 +7,7 @@ based on [face-api.js](https://github.com/justadudewhohacks/face-api.js)
 ## [opencv js test](https://kiyousen.github.io/cvjs/)
 
 from [opencvjs-facedetect-livedemo](https://github.com/mecab/opencvjs-facedetect-livedemo)
+
+## [opencv js test](https://kiyousen.github.io/cvjs_mainthread/)
+
+from [opencvjs-facedetect-livedemo](https://github.com/mecab/opencvjs-facedetect-livedemo)
