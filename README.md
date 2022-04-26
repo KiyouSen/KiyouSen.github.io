@@ -18,11 +18,11 @@ from [opencvjs-facedetect-livedemo](https://github.com/mecab/opencvjs-facedetect
 ![sample](res/sample.png)
 2. bbbb
    1. c
-   2. d<br><img src="res/sample.png">
+   2. d<br><img src="res/sample.png"/>
 3. cccc
    1. c
    2. d<br>
-<img src="res/sample.png">
+<img src="res/sample.png"/>
 
 3. cccc
 
