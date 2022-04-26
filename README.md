@@ -14,21 +14,21 @@ from [opencvjs-facedetect-livedemo](https://github.com/mecab/opencvjs-facedetect
 
 1. aaaa
   1. c
-  2. d
+  2. d<br>
 ![sample](res/sample.png)
 2. bbbb
   1. c
-  2. d
+  2. d<br>
 ![sample](res/sample.png)
 
 3. cccc
   1. c
-  2. d
+  2. d<br>
 <img src="res/sample.png">
 
 3. cccc
   1. c
-  2. d
+  2. d<br>
 <img src="res/sample.png"/>
 
 3. cccc
